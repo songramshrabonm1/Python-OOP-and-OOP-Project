@@ -1,3 +1,4 @@
+#1st number question requirement
 class Star_cinema : 
     
 
@@ -16,7 +17,8 @@ class Star_cinema :
 
 
 class Hall(Star_cinema):
-        
+
+     #2nd number question requirement   
     def __init__(self , rows , cols , hall_no ) -> None:
         self.__rows = rows
         self.__cols = cols
@@ -35,6 +37,7 @@ class Hall(Star_cinema):
         info = (self.id, self.movie_name, self.time)
         self.__show_list.append(info)
         self.__seats[id] = []
+        
 
         for i in range(self.__rows):
             row = []
@@ -44,8 +47,13 @@ class Hall(Star_cinema):
 
     # 4 number question Requirement
     def book_seat(self , id ):
+
+        if not self.__seats:
+            print(f"There Is No Show Currently Running.\n")
+            return
+
         
-        if id not in self.__seats :
+        if id not in self.__seats : #check id is available in seats diction 
             print(f"Invalid Show Id \n\n")
             return
 
@@ -98,16 +106,20 @@ class Hall(Star_cinema):
 
     #5 number question requirement
     def view_show_list(self):
-        if len(self.__show_list) == 0: 
-            print(f"There is no show currently running.")
+        if len(self.__show_list) == 0:  #check show list is empty or not if check list is empty then return
+            print(f"There Is No Show Currently Running.\n")
             return
 
         for value in self.__show_list: # Print each show in the show list
             print(value)
         print("\n")
 
-    #6 number question requirement
+    #6 number question requirement ( view_available_seats()  which will take an id of show, and view the seats that are available in that show	)
     def view_available_seats(self , id ):
+        if not self.__seats:
+            print(f"There Is No Show Currently Running.\n")
+            return
+        
         if id not in self.__seats: # it's complexity o(1)
             print(f"Invalid Show Id\n")
             return
@@ -152,29 +164,34 @@ class Hall(Star_cinema):
 HallDictionary = {}
 
 while True:
-    print(f"Who are You ? ")
-    print(f"1.Are You HallOwner/HallManager")
-    print(f"2.Are You User")
-    print(f"Exit")
+    print("\n\t<------------------*********************---------------------->\n")
+    print(f"\t\t\t\tWho are You ? ")
+    print(f"\t\t\t\t1.Are You HallOwner/HallManager")
+    print(f"\t\t\t\t2.Are You User")
+    print(f"\t\t\t\t3.Exit")
+    print("\n\t<------------------*********************---------------------->\n")
     option = int(input("Select Option : "))
     if option == 1 :
         while True: 
-            print(f"1.Are You want a create a new Hall in your Star cinema")
-            print(f"2.Are You want to entry show")
-            print(f"3.Show All the Halls in Star Cinema")
-            print(f"4.Do You want to Back")
+            print("\n\t\t<------------------*********************---------------------->\n")
+            print(f"\t\t\t\t1.Are You want a create a new Hall in your Star cinema")
+            print(f"\t\t\t\t2.Are You want to entry show")
+            print(f"\t\t\t\t3.Show All the Halls in Star Cinema")
+            print(f"\t\t\t\t4.Do You want to Back")
+            print("\n\t\t<------------------*********************---------------------->\n")
             # print(f"1. Yes...")
             # print(f"2. No...")
             chose = int(input("Chose Your Option: "))
 
             if chose ==1 :
 
-                rowss = int(input("How many rows do you want?"))
-                colss = int(input("How many column do you want?"))
-                hallNumber = int(input("Enter Hall Number "))
+                rowss = int(input("\tHow many rows do you want? "))
+                colss = int(input("\tHow many column do you want? "))
+                hallNumber = int(input("\tEnter Hall Number "))
+                print("\n\t\t<------------------*********************---------------------->\n")
 
                 if hallNumber in HallDictionary:
-                    print(f"This hallNumber Hall already exist .Enter different HallNumber : ")
+                    print(f"\t\t\nThis hallNumber Hall already exist .Enter different HallNumber :\n\n")
                     continue
 
                 HallDictionary[hallNumber] = Hall(rowss,colss,hallNumber)
@@ -184,45 +201,52 @@ while True:
             elif chose == 2 : 
                 
                 if not HallDictionary:
-                    print(f"No Halls Available. Please create One First")
+                    print(f"\t\t\nNo Halls Available. Please create One First\n\n")
                     continue
 
-                print(f"Existed Hall List : ")
+                print(f"\t\tExisted Hall List : \n\n")
                 for key,value in HallDictionary.items():
                     print(f"HallNumber: {key} - {value}")
                 print("\n")
+                print("\n\t\t<------------------*********************---------------------->\n")
 
-                HallNumber = int(input("Enter Hall_Number : "))
+
+                HallNumber = int(input("\t\tEnter Hall_Number : "))
                 if HallNumber not in HallDictionary:
-                    print(f"HallNumber is not exist ")
+                    print(f"\t\tHallNumber is not exist ")
                     continue
                 
-                id = int(input("Enter Movie Id : "))
-                MovieName = input("Enter Movie Name: ")
-                Time = input("Enter show Time : ")
+                print(f"\n\t\tRunning Show: \n")
+                HallDictionary[HallNumber].view_show_list()
+                print("\n")
+                
+                id = int(input("\t\t\tEnter Movie Id : "))
+                MovieName = input("\t\t\tEnter Movie Name: ")
+                Time = input("\t\t\tEnter show Time : ")
                 HallDictionary[HallNumber].entry_show(id,MovieName,Time)
             
             elif chose == 3 : 
                 if not HallDictionary:
-                    print(f"No Halls Available . please Create One First.")
+                    print(f"\t\t\tNo Halls Available . please Create One First.\n")
                     continue
                 Star_cinema.view_hall()
 
             else:
                 break
+
     elif option == 2:
         
         
         if not HallDictionary:
-            print(f"No Halls Available. Please Create One First.")
-            break
+            print(f"\t\t\tNo Halls Available. Please Contract Hall Manager/Hall Owner for create a Hall and Entry a Show For Your Enjoyment\n")
+            continue
 
-        print(f"Existed Hall List : ")
+        print(f"\t\t\t\tExisted Hall List : \n\n")
         for key,value in HallDictionary.items():
-            print(f"HallNumber: {key} - {value}")
+            print(f"\t\t\t\t\tHallNumber: {key} - {value}")
         print("\n")
 
-        print("Which hall's information do you want to know? Enter The HallNumber : ")
+        print("\t\t\tWhich hall's information do you want to know? Enter The HallNumber : \n")
         hallNumber 
         while True:
             hallNumber = int(input("Hall Numbers: "))
@@ -232,48 +256,27 @@ while True:
                 break
    
         while True:
+            print("\n\t\t<------------------*********************---------------------->\n")
 
-            print('\t1. VIEW ALL THE SHOW TODAY')
-            print('\t2. VIEW AVAILABLE SEATS')
-            print('\t3. BOOK TICKET')
-            print('\t4. EXIT')
+            print('\t\t\t1. VIEW ALL THE SHOW TODAY')
+            print('\t\t\t2. VIEW AVAILABLE SEATS')
+            print('\t\t\t3. BOOK TICKET')
+            print('\t\t\t4. EXIT')
             option = int(input('ENTER OPTION: '))
 
+            print("\n\t\t<------------------*********************---------------------->\n")
+
+
             if option == 1 :
-                # print(f"Existed Hall List : ")
-                # for key,value in HallDictionary.items:
-                #     print(f"HallNumber: {key} - {value}")
-                # print("\n")
 
-                # print(f"Which Hall All The Show  Are You Want To See")
-                # hallNumber = int(input("Hall Numbers: "))
-                # if hallNumber not in HallDictionary:
-                #     print(f"Enter Valid Hall Number . this is not valid ")
-                #     continue
-
-                print("********************************************************\n\n")
+                print("\t\t\t\t________************************___________")
 
                 HallDictionary[hallNumber].view_show_list()
 
-                print("********************************************************\n\n")
+                print("\t\t\t\t________**************************__________")
 
 
             elif option == 2:
-
-                # print(f"Existed Hall List : ")
-                # for key,value in HallDictionary.items:
-                #     print(f"HallNumber: {key} - {value}")
-                # print("\n")
-
-                # print(f"Which hall's available tickets do you want to view?")
-
-                # print(f"Which Hall All The Show  Are You Want To See")
-                # hallNumber = int(input("Hall Numbers: "))
-                # if hallNumber not in HallDictionary:
-                #     print(f"Enter Valid Hall Number . this is not valid ")
-                #     continue
-
-                
 
                 id = int(input("Enter Show Id : "))
                 HallDictionary[hallNumber].view_available_seats(id)
